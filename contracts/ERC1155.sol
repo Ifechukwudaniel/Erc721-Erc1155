@@ -76,6 +76,12 @@ contract ERC1155 {
        return _operatorApprovals[owner][operator];
     }
 
+    //Erc 165 Compliment
+     // Tell everyone that we support the ERC1155 function
+    // interfaceId == 0xd9b67a26
+     function supportsInterface(bytes4 interfaceId) public pure virtual returns(bool) {
+        return interfaceId == 0xd9b67a26;
+    }
 
 
 }
