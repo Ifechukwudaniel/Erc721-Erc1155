@@ -14,10 +14,17 @@ contract ERC1155 {
 
     mapping (address=> mapping (address => bool))private _operatorApprovals;
     
-    function safeBatchTransferFrom(address from, address to, uint256[] memory ids, uint256[] memory amount) public {
+    function safeBatchTransferFrom(address from, address to, uint256[] memory ids, uint256[] memory amounts) public {
         require( from == msg.sender || isApprovedForAll(from,msg.sender),"Msg.sender is not an approved sender");
         require(to != address(0),"You can not have a zero address");
-        require(ids.length == amount.length , "ids and amount are not the same length");
+        require(ids.length == amounts.length , "ids and amount are not the same length");
+         for (uint i = 0; i < ids.length; i++) {
+             uint256 id  = ids[i];
+             uint256 amount = amounts[i];
+             _transfer(from , to, id, amount);
+         }
+        emit TransferBatch(msg.sender,from, to, ids, amounts);
+        require(_checkOnERC1155Received(),"Receiver Not Implemented");
     }
 
     function _transfer(address from , address to , uint256 id, uint256 amount) private {
