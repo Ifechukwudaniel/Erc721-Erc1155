@@ -22,6 +22,10 @@
       "trait_type": "Intelligence",
       "value": 6,
       "max_value": 10
+    },
+    {
+      "trait_type": "Emoji",
+      "value": "🇩🇯"
     }
   ]
 }
